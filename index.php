@@ -1,88 +1,53 @@
 <?php
-    include("conexion.php");
-    $conexion = conectar();
-    $query = "SELECT * FROM cursos";
-    $resultado = mysqli_query($conexion, $query);
+session_start();
+require 'database.php';
+if (isset($_SESSION['user_id'])) {
+    $query = "SELECT * FROM usuarios WHERE id = :id";
+    $registro = $conn->prepare($query);
+    $registro->bindParam(':id', $_SESSION['user_id']);
+    $registro->execute();
+    $resultado = $registro->fetch(PDO::FETCH_ASSOC);
+    $user = null;
+    if (count($resultado) > 0) {
+        $user = $resultado;
+    }
+}
 ?>
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>SISTEMA ESCOLAR</title>
-  </head>
-  <body>
-  <div class="container mt-5">
-  <h1>SISTEMA DE REGISTRO DE CURSOS</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <h1>Ingresa los datos</h1>
-                <form action="insertar.php" method="post">
-                    <input type="text"
-                     name="curso" 
-                     class="form-control mb-3"
-                     placeholder="Curso"
-                >
-                <input type="text"
-                     name="horario" 
-                     class="form-control mb-3"
-                     placeholder="horario"
-                >
-                <input type="text"
-                     name="carrera" 
-                     class="form-control mb-3"
-                     placeholder="carrera"
-                >
-                <input type="text"
-                     name="profesor" 
-                     class="form-control mb-3"
-                     placeholder="Profesor"
-                >
+	<title>INDEX</title>
+	<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<center>
+<p><font size="5">
+<body>
+<div class="card backcolor" style="width: 60rem; color:green;  ">
+  <div class="card-body">
+    
+        <p><font size="10">
+        <?php if(!empty($user)): ?>
+         <h1>BIENVENIDO: <?= $user['email']; ?></h1>
+         <h1>SESION ACTIVA</h1>
+        <a href="home.php" class="btn btn-primary" style="width: 45%;">INGRESAR AL SISTEMA</a>  
+        <a href="logout.php" class="btn btn-danger" style="width: 45%;">LOGOUT</a>  
 
-                <input type="submit" 
-                class="btn btn-primary"
-                value="Insertar"
-                style="width: 100%;" 
-                >
-                </form>
-            </div>
-            <div class="col-md-7">
-                <table class="table">
-                    <thead class="table-success table-striped">
-                        <tr>
-                            <th>curso</th>
-                            <th>horario</th>
-                            <th>carrera</th>
-                            <th>profesor</th>
-                            <th> </th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                <tbody>
-                    <?php
-                    while($row=mysqli_fetch_array($resultado)) {
-                    ?>
-                    <tr>
-                        <td><?php echo $row['curso'] ?></td>
-                        <td><?php echo $row['horario'] ?></td>
-                        <td><?php echo $row['carrera'] ?></td>
-                        <td><?php echo $row['profesor'] ?></td>
-                        <td>
-                            <a href="actualizar.php?id=<?php echo $row['id']?>" 
-                            class="btn btn-warning">EDITAR</a> </td>
-                            
-                          <td>  <a href="delete.php?id=<?php echo $row['id']?>" 
-                            class="table__item__link btn btn-danger">BORRAR</a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-                </table>
-            </div>
-            <script src="confirmacion.js"></script>
+    <?php else: ?>
+        <h1>Please login or Signup</h1>
+        <a href="login.php" class="btn btn-primary " style="width: 45%;">LOGIN</a>
+        <a href="signup.php" class="btn btn-warning" style="width: 45%;">SIGNUP</a>      
+    <?php endif; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
+</p>
+  </div>
+</div>
+   
+    </font></p>
+    </center>
+
+</body>
 </html>

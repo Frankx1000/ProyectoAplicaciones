@@ -1,10 +1,10 @@
 <?php
     include("conexion.php");
     $conn = conectar();
-    $id = $_GET['id'];
-    $sql = "DELETE FROM cursos WHERE id='$id'";
+    $nua = $_GET['nua'];
+    $sql = "DELETE FROM alumnos WHERE nua='$nua'";
     $query = mysqli_query($conn, $sql);
     if($query) {
-        Header("Location: home.php");
+        Header("Location: home3.php");
     }
 ?>

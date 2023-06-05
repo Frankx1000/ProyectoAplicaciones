@@ -2,7 +2,7 @@
     include("conexion.php");
     $conn = conectar();
     $id = $_GET['id'];
-    $sql = "SELECT * FROM cursos WHERE id='$id'";
+    $sql = "SELECT * FROM profesores WHERE id='$id'";
     $query = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($query);
 ?>
@@ -24,48 +24,30 @@
 <div class="card backcolor" style="width: 44rem; color:blue;  ">
   <div class="card-body">
     <p class="card-text">
-    <h1 class="text-center">ACTUALIZAR CURSO</h1>
+    <h1 class="text-center">ACTUALIZAR PROFESORES</h1>
     </div>
-    <form action="update.php" method="post">
+    <form action="update2.php" method="post">
                 <input type="text"
                      name="id" 
                      value="<?php echo $row['id']?>"
                      hidden>
                 <input type="text"
-                     name="curso" 
+                     name="nombre" 
                      class="form-control mb-3"
-                     value="<?php echo $row['curso']?>"
-                     placeholder="Curso"
-                >
-                <input type="text"
-                     name="horario" 
-                     class="form-control mb-3"
-                     value="<?php echo $row['horario']?>"
-                     placeholder="Horario"
-                >
-                <input type="text"
-                     name="carrera" 
-                     class="form-control mb-3"
-                     value="<?php echo $row['carrera']?>"
-                     placeholder="Carrera"
-                >
-                <input type="text"
-                     name="profesor" 
-                     class="form-control mb-3"
-                     value="<?php echo $row['profesor']?>"
-                     placeholder="Profesor"
+                     value="<?php echo $row['nombre']?>"
+                     placeholder="profesor"
                 >
 
                 <input type="submit" 
-                class="table__item__link2 btn btn-primary btn-block"
+                class="table__item__link2 btn btn-primary btn-block mb-2"
                 value="Actualizar"
                 style="width: 90%;" 
                 >
 
-                <button class="btn btn-dark mb-5" style="width: 90%;"  @onclick="location.redirect('home.php')">
+                <button class="btn btn-dark mb-5" style="width: 90%;"  @onclick="location.redirect('home2.php')">
                     Regresar
                 </button>
-    </form>
+                </form>
     </p>
 </div>
 </div>

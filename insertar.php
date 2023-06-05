@@ -13,7 +13,7 @@ $query = "INSERT INTO cursos(curso, horario, carrera, profesor)
 $resultado = mysqli_query($conexion, $query);
 
 if($resultado) {
-    header('location: index.php');
+    header('location: home.php');
 } else {
     echo 'Algo anda mal';
 }

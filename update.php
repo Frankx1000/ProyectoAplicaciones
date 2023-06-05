@@ -10,7 +10,7 @@
     $sql = "UPDATE cursos SET curso='$curso', horario='$horario', carrera='$carrera', profesor='$profesor' WHERE id='$id'";
     $query = mysqli_query($conn, $sql);
     if($query) {
-        Header("Location: index.php");
+        Header("Location: home.php");
     } else {
         echo $query;
     }
