@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id'])) {
     <?php else: ?>
         <h1>Please login or Signup</h1>
         <a href="login.php" class="btn btn-primary " style="width: 45%;">LOGIN</a>
-        <a href="signup.php" class="btn btn-warning" style="width: 45%;">SIGNUP</a>      
+        <a href="signup.php" class="btn btn-warning" style="width: 45%;">SIGNUP</a>   
     <?php endif; ?>
 
 </p>

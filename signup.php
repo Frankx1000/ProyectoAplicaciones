@@ -3,15 +3,17 @@ require 'database.php';
 $message = '';
 
 if(!empty($_POST['email']) && !empty($_POST['password']) && ($_POST['password']) == ($_POST['repassword'])) {
-    $sql = 'INSERT INTO usuarios (email, password) VALUES (:email, :password)';
+    $sql = 'INSERT INTO usuarios (email, password, rol) VALUES (:email, :password, :rol)';
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $_POST['email']);
+    $stmt->bindParam(':rol', $_POST['rol']);
     $newPass = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $stmt->bindParam(':password', $newPass);
+    
     if ($stmt->execute()) {
         $message = 'Usuario creado correctamente';
     } else {
-        $message = 'Algo ... Salio mal';
+        $message = 'Datos Erroneos .... Vuelva a intentar';
     }
 } 
 
@@ -60,6 +62,12 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && ($_POST['password'])
         <input type="email" name="email" placeholder="Ingrese su email" class="form-control mb-3" style="width: 100%;">
         <input type="password" name="password" placeholder="Ingrese su password" class="form-control mb-3" style="width: 100%;">
         <input type="password" name="repassword" placeholder="Confirme su password" class="form-control mb-3" style="width: 100%;">
+        
+        <select name="rol" class="mb-3" style="width: 100%;">
+        <option value="PROFESOR">PROFESOR</option>
+        <option value="ALUMNO" selected>ALUMNO</option>
+        </select>
+   
         <input class="btn btn-warning btn-block mb-2" type="submit" value="REGISTER" style="width: 100%;">
         <a href="index.php" class="btn btn-success" style="width: 100%;">HOME</a>
     </form>

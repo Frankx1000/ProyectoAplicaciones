@@ -19,6 +19,9 @@ if (isset($_SESSION['user_id'])) {
     $conexion = conectar();
     $query = "SELECT * FROM alumnos";
     $resultado = mysqli_query($conexion, $query);
+
+    $query2 = "SELECT * FROM cursos";
+    $resultado2 = mysqli_query($conexion, $query2);
 ?>
 
 <!DOCTYPE html>
@@ -92,11 +95,17 @@ if (isset($_SESSION['user_id'])) {
                      class="form-control mb-3"
                      placeholder="edad"
                 >
-                <input type="text"
-                     name="curso" 
-                     class="form-control mb-3"
-                     placeholder="curso"
-                >
+                <select name="curso" class="mb-3" style="width: 100%;">
+                 <?php
+                while($ren=mysqli_fetch_array($resultado2)) {
+                ?>
+                <option value="<?php echo $ren['curso'] ?>"><?php echo $ren['curso'] ?></option>
+
+                <?php 
+                 
+                 } 
+                 ?>
+                </select>  
 
                 <input type="submit" 
                 class="btn btn-primary"

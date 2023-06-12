@@ -1,3 +1,4 @@
+
 <?php 
 include("conexion.php");
 $conexion = conectar();
@@ -7,6 +8,7 @@ $horario = $_POST['horario'];
 $carrera = $_POST['carrera'];
 $profesor = $_POST['profesor'];
 
+if(!empty($_POST['curso'])){
 $query = "INSERT INTO cursos(curso, horario, carrera, profesor)
          VALUES('$curso', '$horario', '$carrera', '$profesor')";
 
@@ -14,6 +16,10 @@ $resultado = mysqli_query($conexion, $query);
 
 if($resultado) {
     header('location: home.php');
+} else {
+    echo 'Algo anda mal';
+}
+
 } else {
     echo 'Algo anda mal';
 }

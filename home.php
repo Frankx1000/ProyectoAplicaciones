@@ -19,6 +19,9 @@ if (isset($_SESSION['user_id'])) {
     $conexion = conectar();
     $query = "SELECT * FROM cursos";
     $resultado = mysqli_query($conexion, $query);
+
+    $query2 = "SELECT * FROM profesores";
+    $resultado2 = mysqli_query($conexion, $query2);
 ?>
 
 <!DOCTYPE html>
@@ -83,21 +86,35 @@ if (isset($_SESSION['user_id'])) {
                      class="form-control mb-3"
                      placeholder="Curso"
                 >
-                <input type="text"
-                     name="horario" 
-                     class="form-control mb-3"
-                     placeholder="horario"
-                >
-                <input type="text"
-                     name="carrera" 
-                     class="form-control mb-3"
-                     placeholder="carrera"
-                >
-                <input type="text"
-                     name="profesor" 
-                     class="form-control mb-3"
-                     placeholder="Profesor"
-                >
+
+                <select name="horario" class="mb-3" style="width: 100%;">
+                <option value="8:00-10:00">8:00-10:00</option>
+                <option value="10:00-12:00">10:00-12:00</option>
+                <option value="12:00-14:00">12:00-14:00</option>
+                <option value="14:00-16:00">14:00-16:00</option>
+                <option value="16:00-18:00">16:00-18:00</option>
+                </select>
+
+                <select name="carrera" class="mb-3" style="width: 100%;">
+                <option value="Sistemas">Sistemas</option>
+                <option value="Mecatronica">Mecatronica</option>
+                <option value="Electrica">Electrica</option>
+                <option value="Electronica">Electronica</option>
+                <option value="I.Artificial">I.Artificial</option>
+                <option value="Tronco Comun">Tronco Comun</option>
+                </select>
+
+                <select name="profesor" class="mb-3" style="width: 100%;">
+                 <?php
+                while($ren=mysqli_fetch_array($resultado2)) {
+                ?>
+                <option value="<?php echo $ren['nombre'] ?>"><?php echo $ren['nombre'] ?></option>
+
+                <?php 
+                 
+                 } 
+                 ?>
+                </select>                   
 
                 <input type="submit" 
                 class="btn btn-primary"
@@ -106,6 +123,7 @@ if (isset($_SESSION['user_id'])) {
                 >
                 </form>
             </div>
+
             <div class="col-md-7">
                 <table class="table">
                     <thead class="table-success table-striped">

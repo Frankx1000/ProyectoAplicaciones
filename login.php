@@ -16,7 +16,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
     $_SESSION['user_id'] = $usuario['id'];
     header('Location: home.php');
      } else {
-        $message = 'Algo anda mal';
+        $message = 'Datos erroneos';
      }
 }
 ?>

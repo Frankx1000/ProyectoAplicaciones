@@ -36,6 +36,7 @@
                      class="form-control mb-3"
                      value="<?php echo $row['nombre']?>"
                      placeholder="profesor"
+                     style="width: 90%;" 
                 >
 
                 <input type="submit" 

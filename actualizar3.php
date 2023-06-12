@@ -5,6 +5,9 @@
     $sql = "SELECT * FROM alumnos WHERE nua='$nua'";
     $query = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($query);
+
+    $query2 = "SELECT * FROM cursos";
+    $resultado2 = mysqli_query($conn, $query2);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +21,7 @@
     <link rel="stylesheet" href="4.css">
 </head>
 <center>
-<p><font size="7">
+<p><font size="5">
 <body>
 <div class="card backcolor" style="width: 44rem; color:blue;  ">
   <div class="card-body">
@@ -45,12 +48,18 @@
                      value="<?php echo $row['edad']?>"
                      placeholder="edad"
                 >
-                <input type="text"
-                     name="curso" 
-                     class="form-control mb-3"
-                     value="<?php echo $row['curso']?>"
-                     placeholder="curso"
-                >
+
+                <select name="curso" class="mb-3" style="width: 91%;">
+                 <?php
+                while($ren=mysqli_fetch_array($resultado2)) {
+                ?>
+                <option value="<?php echo $ren['curso'] ?>"><?php echo $ren['curso'] ?></option>
+
+                <?php 
+                 
+                 } 
+                 ?>
+                </select>     
 
                 <input type="submit" 
                 class="table__item__link2 btn btn-primary btn-block mb-2"
